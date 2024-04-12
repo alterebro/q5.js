@@ -1637,16 +1637,23 @@ function Q5(scope){
     // TYPOGRAPHY
     //================================================================
 
-    $.loadFont = function(url,callback){
+    $.loadFont = function(url,success,failure){
       let sp = url.split("/");
       let name = sp[sp.length-1].split(".")[0].replace(" ","");
-      let cssStr = `@font-face {
-        font-family: '${name}';
-        src: url('${url}');
-      }`;
-      const style = document.createElement('style');
-      style.textContent = cssStr;
-      document.head.append(style);
+      let f = new FontFace( name , `url('${url}')`);
+          f.load().then(
+            function(font){
+              document.fonts.add(font);
+              if (success) {
+                success(name);
+              }      
+            },
+            function(err) {
+              if (failure) {
+                failure(err)
+              }
+           }); 
+
       return name;
     }
     $.textFont = function(x){
