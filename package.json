@@ -2,9 +2,14 @@
   "name": "q5xjs",
   "version": "0.0.3",
   "description": "A small and fast alternative (experimental) implementation of p5.js",
+  "main": "src/q5.js",
+  "unpkg": "dist/q5.min.js",
+  "browser": "dist/q5.min.js",
+  "scripts": {
+    "build": "find src/ -name '*.js' -exec sh -c 'terser \"$1\" -o dist/\"$(basename \"$1\" .js).min.js\" --compress --mangle' _ {} \\;"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LingDong-/q5xjs.git"
-  },
-  "main": "q5.min.js"
+    "url": "git+https://github.com/alterebro/q5.js.git"
+  }
 }
