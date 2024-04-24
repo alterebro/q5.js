@@ -1,12 +1,14 @@
 if (typeof exports === "object" && typeof module !== "undefined") module.exports = Q5;
 
-function Q5(scope) {
+function Q5(scope, attr) {
 	"use strict";
 	return new graphics(scope);
 	function graphics(scope) {
 		let $ = (scope == "global" ? window : this);
 		$.canvas = document.createElement("canvas");
-		let ctx = $.canvas.getContext("2d");
+		let ctx = $.canvas.getContext("2d", attr); 
+		// Context Attributes Object
+		// : developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/getContextAttributes
 
 		$.width = 100;
 		$.height = 100;
