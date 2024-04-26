@@ -117,6 +117,7 @@ function Q5(scope, attr) {
 		// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 		$.BRIGHTNESS = 9;
 		$.CONTRAST = 10;
+		$.SATURATE = 11;
 
 		$.ARROW = 'default';
 		$.CROSS = 'crosshair';
@@ -1447,6 +1448,30 @@ function Q5(scope, attr) {
 			}
 		}
 
+		filterImpl[$.SATURATE] = function (data, amount) {
+			amount = (amount == undefined) ? 1.5 : amount;
+			amount = Math.max(0, amount);
+
+			const lumR = (1 - amount) * 0.3086;
+			const lumG = (1 - amount) * 0.6094;
+			const lumB = (1 - amount) * 0.082;
+			const shiftW = width << 2;
+
+			for (let j = 0; j < height; j++) {
+				const offset = j * shiftW;
+				for (let i = 0; i < width; i++) {
+					const pos = offset + (i << 2);
+					const r = data[pos + 0];
+					const g = data[pos + 1];
+					const b = data[pos + 2];
+			
+					data[pos + 0] = (lumR + amount) * r + lumG * g + lumB * b;
+					data[pos + 1] = lumR * r + (lumG + amount) * g + lumB * b;
+					data[pos + 2] = lumR * r + lumG * g + (lumB + amount) * b;
+				}
+			}
+		}
+
 		function makeTmpCtx(w, h) {
 			if (tmpCtx == null) {
 				tmpCtx = document.createElement("canvas").getContext('2d');
@@ -1527,6 +1552,10 @@ function Q5(scope, attr) {
 					x = (x == undefined) ? 1.5 : x;
 					let c = Math.max(0, x) * 100;
 					nativeFilter(`contrast(${c}%)`);
+				} else if (typ == $.SATURATE) {
+					x = (x == undefined) ? 1.5 : x;
+					let s = Math.max(0, x) * 100;
+					nativeFilter(`saturate(${s}%)`);
 				} else {
 					let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 					filterImpl[typ](imgData.data, x);
