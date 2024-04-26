@@ -115,6 +115,7 @@ function Q5(scope, attr) {
 		$.BLUR = 8;
 		// Extra Filters :
 		// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
+		// https://github.com/davidenke/context-filter-polyfill
 		$.BRIGHTNESS = 9;
 		$.CONTRAST = 10;
 		$.SATURATE = 11;
