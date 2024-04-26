@@ -113,6 +113,10 @@ function Q5(scope, attr) {
 		$.DILATE = 6;
 		$.ERODE = 7;
 		$.BLUR = 8;
+		// Extra Filters :
+		// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
+		$.BRIGHTNESS = 9;
+		$.CONTRAST = 10;
 
 		$.ARROW = 'default';
 		$.CROSS = 'crosshair';
@@ -1425,6 +1429,24 @@ function Q5(scope, attr) {
 			}
 		}
 
+		filterImpl[$.BRIGHTNESS] = function (data, amount) {
+			amount = (amount == undefined) ? 1.5 : amount;
+			for (let i = 0; i < data.length; i += 4) {
+				data[i] *= amount;
+				data[i + 1] *= amount;
+				data[i + 2] *= amount;
+			}
+		}
+
+		filterImpl[$.CONTRAST] = function (data, amount) {
+			amount = (amount == undefined) ? 1.5 : amount;
+			for (let i = 0; i < data.length; i += 4) {
+				data[i + 0] = ((data[i + 0] / 255 - 0.5) * amount + 0.5) * 255;
+				data[i + 1] = ((data[i + 1] / 255 - 0.5) * amount + 0.5) * 255;
+				data[i + 2] = ((data[i + 2] / 255 - 0.5) * amount + 0.5) * 255;
+			}
+		}
+
 		function makeTmpCtx(w, h) {
 			if (tmpCtx == null) {
 				tmpCtx = document.createElement("canvas").getContext('2d');
@@ -1497,6 +1519,14 @@ function Q5(scope, attr) {
 					nativeFilter(`invert(100%)`);
 				} else if (typ == $.BLUR) {
 					nativeFilter(`blur(${Math.ceil(x * $._pixelDensity / 1) || 1}px)`);
+				} else if (typ == $.BRIGHTNESS) {
+					x = (x == undefined) ? 1.5 : x;
+					let b = Math.max(0, x) * 100;
+					nativeFilter(`brightness(${b}%)`);
+				} else if (typ == $.CONTRAST) {
+					x = (x == undefined) ? 1.5 : x;
+					let c = Math.max(0, x) * 100;
+					nativeFilter(`contrast(${c}%)`);
 				} else {
 					let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 					filterImpl[typ](imgData.data, x);
