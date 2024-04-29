@@ -61,10 +61,32 @@ function selector() {
 		_output += '</select>';
 	return _output;
 }
-document.querySelector("nav").innerHTML = selector();
+function datalist() {
 
+	let _i = 0;
+	let _output = '<input list="reference-list" id="reference-item" name="reference-item" placeholder="Search" onchange="selection(this)" />';
+		_output += '<datalist id="reference-list">';
+		for ( item in snippets ) {
+			let _value = (snippets[item].name)[0].toUpperCase() + (snippets[item].name).slice(1);
+			_output += `<option value="${_value}" data-name="${snippets[item].name}" data-id="${snippets[item].id}" data-guid="${_i}"></option>`;
+			// _output += `<option value="${snippets[item].id}">${snippets[item].name}</option>`;
+			_i++;
+		}
+		_output += '</datalist>';
+	return _output;
+}
+document.querySelector("nav").innerHTML = `${selector()} ${datalist()}`;
+
+
+function selection(val) {
+
+	openEg(document.querySelector(`datalist#reference-list option[value="${val.value}"]`).dataset.id);
+}
 
 	function openEg(id) {
+
+		document.querySelector('input#reference-item').value = '';
+		document.querySelector('nav select').value = id;
 
 		if (id == false) { 
 			document.querySelector("#index").classList.remove('hidden');
