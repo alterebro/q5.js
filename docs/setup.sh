@@ -12,7 +12,7 @@ mv p5-reference/assets assets
 # copy files over
 # cp ../src/q5.js q5.js
 cp ../dist/q5.min.js q5.min.js
-cp ../tests.js tests.js
+# cp ../tests.js tests.js
 cp ../README.md README.md
 
 # build site
