@@ -32,6 +32,11 @@ a {
     color: var(--color-alpha);
     text-decoration: none;
     background-color: transparent;
+    border-bottom: dotted var(--color-alpha) 1px;
+
+    &:hover {
+        border-bottom: solid var(--color-fg) 1px;
+    }
 }
 
 header {
@@ -90,14 +95,21 @@ main {
 
     #index {
         ul {
-            display: flex;
-            flex-wrap: wrap;
             padding: 0;
+            margin: 0 auto;
+            display: grid;
+            gap: .5rem;
     
+            @media (min-width: 20rem) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+              
+            @media (min-width: 36rem) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
             > li {
                 list-style: inside disc;
-                width: 33.3%;
-                flex: 0 0 33.3%;
                 text-transform: capitalize;
             }
         }
@@ -126,8 +138,7 @@ main {
         pre {
             background: var(--color-fg);
             color: var(--color-bg);
-            margin: 2rem;
-            margin-left: 0;
+            margin: 2rem 0;
             padding: 2rem;
             border-radius: .3rem;
             overflow-x: scroll;   
