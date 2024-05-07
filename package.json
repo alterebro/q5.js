@@ -6,7 +6,7 @@
   "unpkg": "dist/q5.min.js",
   "browser": "dist/q5.min.js",
   "scripts": {
-    "build": "find src/ -name '*.js' -exec sh -c 'terser \"$1\" -o dist/\"$(basename \"$1\" .js).min.js\" --compress --mangle' _ {} \\;; cp dist/q5.min.js docs/q5.min.js"
+    "build": "find src/ -name '*.js' -exec sh -c 'terser \"$1\" -o dist/\"$(basename \"$1\" .js).min.js\" --compress --mangle' _ {} \\;; cp dist/q5.min.js docs/js/q5.min.js; cp README.md docs/README.md; node generate-docs.js"
   },
   "repository": {
     "type": "git",
