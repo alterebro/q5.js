@@ -1,5 +1,6 @@
 # q5.js
 
+> This is a fork. The original repo resides here: https://github.com/LingDong-/q5xjs
 
 q5.js is a small and fast alternative (experimental) implementation of [p5.js](https://p5js.org), the client-side JS platform for creative expression on the web. q5.js is mostly code-compatible with p5.js, meaning you can simply swap out the library link in an existing sketch and expect it to work with minimal modification. It inherits most of its good stuff from p5.js, though it puts more emphasis on following aspects:
 

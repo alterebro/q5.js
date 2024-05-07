@@ -6,10 +6,16 @@
   "unpkg": "dist/q5.min.js",
   "browser": "dist/q5.min.js",
   "scripts": {
-    "build": "find src/ -name '*.js' -exec sh -c 'terser \"$1\" -o dist/\"$(basename \"$1\" .js).min.js\" --compress --mangle' _ {} \\;; cp dist/q5.min.js docs/js/q5.min.js; cp README.md docs/README.md; node generate-docs.js"
+    "build": "find src/ -name '*.js' -exec sh -c 'terser \"$1\" -o dist/\"$(basename \"$1\" .js).min.js\" --compress --mangle' _ {} \\;; cp dist/q5.min.js docs/js/q5.min.js; node generate-docs.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alterebro/q5.js.git"
-  }
+  },
+  "keywords": [
+    "p5",
+    "p5.js",
+    "processing",
+    "q5"
+  ]
 }
