@@ -1,6 +1,6 @@
 {
   "name": "q5.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "[q5 fork] p5.js small & fast alternative (experimental) implementation.",
   "main": "src/q5.js",
   "unpkg": "dist/q5.min.js",
