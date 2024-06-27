@@ -4,7 +4,8 @@ function Q5(scope, attr) {
 	"use strict";
 	return new graphics(scope);
 	function graphics(scope) {
-		let $ = (scope == "global" ? window : this);
+		let $ = (scope !== "offscreen" && typeof scope !== "undefined") ? window : this;
+
 		$.canvas = document.createElement("canvas");
 		let ctx = $.canvas.getContext("2d", attr); 
 		// Context Attributes Object
@@ -16,13 +17,13 @@ function Q5(scope, attr) {
 		$.canvas.height = $.height;
 
 		if (scope != "offscreen") {
-			if (document.body) {
-				document.body.appendChild($.canvas);
-			} else {
-				window.addEventListener("load", function () {
-					document.body.appendChild($.canvas);
-				})
-			}
+			let parent = (scope == "global" || typeof scope === "undefined")
+				? document.body 
+				: document.querySelector(scope);
+
+			document.addEventListener("DOMContentLoaded", () => {
+				parent.appendChild($.canvas);
+			});
 		}
 
 		defaultStyle();
