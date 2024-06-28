@@ -21,9 +21,13 @@ function Q5(scope, attr) {
 				? document.body 
 				: document.querySelector(scope);
 
-			document.addEventListener("DOMContentLoaded", () => {
+			if (document.body) {
 				parent.appendChild($.canvas);
-			});
+			} else {
+				window.addEventListener("load", function () {
+					parent.appendChild($.canvas);
+				})
+			}
 		}
 
 		defaultStyle();
